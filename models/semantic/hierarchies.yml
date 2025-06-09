@@ -1,0 +1,11 @@
+# models/semantic/hierarchies.yml
+hierarchies:
+  - name: organizational_hierarchy
+    dimension_groups:
+      - name: cruise_org
+        dimensions:
+          - corporate_entity
+          - brand
+          - ship
+          - department
+          - service

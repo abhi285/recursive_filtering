@@ -1,0 +1,46 @@
+# models/semantic/cruise_revenue.yml
+semantic_models:
+  - name: cruise_revenue
+    description: "Hierarchical cruise revenue data with recursive filtering capabilities"
+    model: ref('fact_cruise_revenue')
+    defaults:
+      agg_time_dimension: booking_date
+
+    dimensions:
+      - name: corporate_entity
+        type: categorical
+        expr: corporate_entity
+
+      - name: brand
+        type: categorical
+        expr: brand_name
+
+      - name: ship
+        type: categorical
+        expr: ship_name
+
+      - name: department
+        type: categorical
+        expr: department_name
+
+      - name: service
+        type: categorical
+        expr: service_name
+
+      - name: booking_date
+        type: time
+        expr: booking_date
+        time_granularity: day
+
+    measures:
+      - name: total_revenue
+        agg: sum
+        expr: revenue_amount
+
+      - name: guest_count
+        agg: count_distinct
+        expr: guest_id
+
+      - name: avg_spend_per_guest
+        agg: average
+        expr: revenue_per_guest

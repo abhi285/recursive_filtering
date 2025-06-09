@@ -1,0 +1,27 @@
+# nclh_recursive_filter_full_sf/dbt_project.yml
+name: 'nclh_recursive_filter_full_sf'
+version: '1.0.0'
+config-version: 2
+
+profile: 'nclh_sf_profile' # This name must match your profiles.yml entry
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+models:
+  nclh_recursive_filter_full_sf:
+    +materialized: view # Default materialization for models
+    staging:
+      +materialized: view # Staging models as views
+    core:
+      +materialized: table # Core models typically tables
+    intermediate:
+      +materialized: table # Intermediate models as tables
+    semantic:
+      +materialized: view # Semantic model definitions are views by default
+
+vars:
+  filter_level: "none" # Default value for filter_level variable
+  filter_value: ""     # Default value for filter_value variable
+  selected_brand: ""   # Variable used in the brand_performance_cascade metric's filter
+
