@@ -6,6 +6,11 @@ semantic_models:
     defaults:
       agg_time_dimension: booking_date
 
+    entities:
+      - name: booking
+        type: primary
+        expr: BOOKING_ID
+        
     dimensions:
       - name: corporate_entity
         type: categorical
@@ -29,8 +34,8 @@ semantic_models:
 
       - name: booking_date
         type: time
-        expr: booking_date
-        time_granularity: day
+        type_params:
+          time_granularity: day
 
     measures:
       - name: total_revenue
