@@ -4,20 +4,22 @@
 )}}
 
 SELECT
-    rev.booking_id,
-    rev.guest_id,
-    rev.revenue_amount,
-    rev.booking_date,
-    corp.hierarchy_name AS corporate_entity,
-    brand.hierarchy_name AS brand_name,
-    ship.hierarchy_name AS ship_name,
-    dept.hierarchy_name AS department_name,
-    service.hierarchy_name AS service_name,
-    service.hierarchy_id AS service_id,
-    rev.revenue_amount as revenue_per_guest
-FROM {{ ref('stg_raw_cruise_revenue') }} rev
-LEFT JOIN {{ ref('stg_raw_organizational_hierarchy') }} service ON rev.service_id = service.hierarchy_id
-LEFT JOIN {{ ref('stg_raw_organizational_hierarchy') }} dept ON rev.department_id = dept.hierarchy_id
-LEFT JOIN {{ ref('stg_raw_organizational_hierarchy') }} ship ON rev.ship_id = ship.hierarchy_id
-LEFT JOIN {{ ref('stg_raw_organizational_hierarchy') }} brand ON rev.brand_id = brand.hierarchy_id
-LEFT JOIN {{ ref('stg_raw_organizational_hierarchy') }} corp ON rev.corporate_entity_id = corp.hierarchy_id
+    raw_rev.booking_id,
+    raw_rev.guest_id,
+    raw_rev.revenue_amount,
+    raw_rev.booking_date,
+    -- Get descriptive names and IDs from the pre-joined hierarchy dimension
+    dim_hierarchy.corporate_entity_id, -- <--- ADDED ID
+    dim_hierarchy.corporate_entity,
+    dim_hierarchy.brand_id,          -- <--- ADDED ID
+    dim_hierarchy.brand_name,
+    dim_hierarchy.ship_id,           -- <--- ADDED ID
+    dim_hierarchy.ship_name,
+    dim_hierarchy.department_id,     -- <--- ADDED ID
+    dim_hierarchy.department_name,
+    dim_hierarchy.service_name,
+    raw_rev.service_id, -- This is the key for recursive filtering
+    raw_rev.revenue_amount as revenue_per_guest
+FROM {{ ref('stg_raw_cruise_revenue') }} raw_rev
+LEFT JOIN {{ ref('dim_service_level_hierarchy') }} dim_hierarchy
+    ON raw_rev.service_id = dim_hierarchy.service_id

@@ -22,5 +22,5 @@ models:
       # Semantic layer definitions are loaded from separate YAML files in this folder
 
 vars:
-  filter_level: "none" # Default value for filter_level variable (e.g., 'brand', 'ship', 'none')
-  filter_value: ""     # Default value for filter_value variable (e.g., 'Norwegian Cruise Line')
+  filter_level: "ship" # Default value for filter_level variable (e.g., 'brand', 'ship', 'none')
+  filter_value: "Marina"     # Default value for filter_value variable (e.g., 'Norwegian Cruise Line')
