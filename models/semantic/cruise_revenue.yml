@@ -49,3 +49,18 @@ semantic_models:
       - name: avg_spend_per_guest
         agg: average
         expr: revenue_per_guest
+
+metrics:
+  - name: hierarchical_revenue
+    description: "Revenue with recursive filtering applied"
+    label: "revenue"
+    type: simple
+    type_params:
+      measure: total_revenue
+  
+  - name: brand_performance_cascade
+    description: "Brand performance including all child entities"  
+    label: "performance"
+    type: derived
+    type_params:
+      expr: hierarchical_revenue / nullif(guest_count, 0)
