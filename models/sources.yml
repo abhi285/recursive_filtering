@@ -1,0 +1,10 @@
+# models/sources.yml
+version: 2
+
+sources:
+  - name: raw_data
+    database: DBT_TEST_DB # <--- UPDATED DATABASE
+    schema: CUSTOMER_DATA_MODEL # <--- UPDATED SCHEMA
+    tables:
+      - name: cruise_revenue
+      - name: organizational_hierarchy
