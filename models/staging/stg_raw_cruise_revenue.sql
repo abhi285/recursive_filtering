@@ -6,11 +6,7 @@
 SELECT
     booking_id,
     guest_id,
-    corporate_entity_id,
-    brand_id,
-    ship_id,
-    department_id,
-    service_id,
+    service_id, -- Only service_id is directly available from raw
     revenue_amount,
     booking_date
 FROM

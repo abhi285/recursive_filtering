@@ -2,7 +2,7 @@
 semantic_models:
   - name: cruise_revenue
     description: "Hierarchical cruise revenue data with recursive filtering capabilities"
-    model: ref('fact_cruise_revenue')
+    model: ref('int_filtered_fact_cruise_revenue')
     defaults:
       agg_time_dimension: booking_date
 
@@ -57,3 +57,4 @@ metrics:
     type: simple
     type_params:
       measure: total_revenue
+

@@ -1,7 +1,9 @@
 -- macros/recursive_hierarchy_filter.sql
 {% macro recursive_hierarchy_filter(level, value) %}
     -- This macro generates a SQL WHERE clause condition for recursive filtering.
-    -- It assumes the existence of the `int_organizational_hierarchy_closure` table.
+    -- It is primarily used by the `int_filtered_fact_cruise_revenue` model.
+    -- It relies on the `int_organizational_hierarchy_closure` table
+    -- and the dbt variables 'level' and 'value'.
 
     {% if level == 'none' or value == '' %}
         TRUE
