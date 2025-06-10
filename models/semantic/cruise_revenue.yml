@@ -57,10 +57,3 @@ metrics:
     type: simple
     type_params:
       measure: total_revenue
-  
-  - name: brand_performance_cascade
-    description: "Brand performance including all child entities"  
-    label: "performance"
-    type: derived
-    type_params:
-      expr: hierarchical_revenue / nullif(guest_count, 0)
